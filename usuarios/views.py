@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views, authenticate, login
 from .forms import CustomUserCreationForm
 
 class CustomLoginView(auth_views.LoginView):
@@ -10,8 +10,11 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            # Redirigir al login después de un registro exitoso
-            return redirect('login')
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('index')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'main/register.html', {'form': form})
+    return render(request, 'usuarios/register.html', {'form': form})

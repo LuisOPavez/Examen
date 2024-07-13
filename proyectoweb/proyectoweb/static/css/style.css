@@ -1,3 +1,70 @@
+/* General reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Contenedor general que ocupa el 100% de la altura de la pantalla */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* El contenido principal ocupará todo el espacio disponible */
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align-last: left;  /* Alineación a la izquierda*/
+}
+
+/* El pie de página se queda en la parte inferior */
+.pie-pagina {
+  background-color: #212529;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: auto; /* Asegura que el pie de página se mantenga en la parte inferior */
+}
+
+.pie-pagina .grupo-1 {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  padding: 45px 0px;
+}
+
+.pie-pagina .grupo-1 .box {
+  margin: 10px;
+  text-align: center;
+}
+
+.pie-pagina .grupo-2 {
+  background-color: #53585e;
+  padding: 15px 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.pie-pagina .grupo-2 small {
+  font-size: 15px;
+}
+
+a {
+  text-decoration: none;
+}
+
 /* General styles */
 .compras {
   color: #000000;
@@ -9,12 +76,6 @@
   margin-top: 5%;
   font-family: 'calibri';
   color: white;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 /* Form styles */
@@ -94,8 +155,6 @@
 /* Footer styles */
 .pie-pagina {
   width: 100%;
-  height: 20%;
-  margin-top: 40px;
   background-color: #212529;
 }
 
