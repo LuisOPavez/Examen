@@ -1,0 +1,24 @@
+{% extends 'main/article_base.html' %}
+
+{% block title %}{{ item.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>{{ item.nombre }}</h1>
+            <p>{{ item.descripcion }}</p>
+            <p><strong>Precio:</strong> {{ item.formatted_precio }}</p>
+            <p><strong>Precio con Descuento:</strong> {{ item.formatted_precio_desc }}</p>
+            <p><strong>Descuento:</strong> {{ item.descuento }}%</p>
+            <p><strong>Marca:</strong> {{ item.marca }}</p>
+            <p><strong>Tipo:</strong> {{ item.tipo_articulo }}</p>
+            <p><strong>Color:</strong> {{ item.color }}</p>
+            <p><strong>Material:</strong> {{ item.material }}</p>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ item.imagen.url }}" class="img-fluid" alt="{{ item.nombre }}">
+        </div>
+    </div>
+</div>
+{% endblock %}

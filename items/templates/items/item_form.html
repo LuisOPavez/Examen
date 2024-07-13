@@ -1,0 +1,38 @@
+{% extends 'main/article_base.html' %}
+
+{% block title %}
+    {% if item.pk %}
+        Modificar Artículo
+    {% else %}
+        Crear Artículo
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>
+        {% if item.pk %}
+            Modificar Artículo
+        {% else %}
+            Crear Artículo
+        {% endif %}
+    </h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">
+            {% if item.pk %}
+                Guardar Cambios
+            {% else %}
+                Guardar
+            {% endif %}
+        </button>
+    </form>
+    {% if item.pk %}
+    <form method="POST" action="{% url 'item_delete' item.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger mt-2">Eliminar</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
