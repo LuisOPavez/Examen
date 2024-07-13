@@ -1,4 +1,5 @@
 {% extends 'main/article_base.html' %}
+{% load static %}
 
 {% block title %}
     {% if item.pk %}
@@ -17,7 +18,7 @@
             Crear Artículo
         {% endif %}
     </h1>
-    <form method="POST" enctype="multipart/form-data">
+    <form id="item-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">
@@ -35,4 +36,8 @@
     </form>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/form_validation.js' %}"></script>
 {% endblock %}
