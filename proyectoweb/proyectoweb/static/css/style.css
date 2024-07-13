@@ -407,3 +407,35 @@ a {
 .list-group-item .btn {
   margin-left: 10px;
 }
+
+.carousel-inner img {
+  width: 100%;
+  height: 500px; /* Ajusta la altura según tus necesidades */
+  object-fit: cover;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 250px;
+}
+
+
+/* Asegurar que el carrusel esté siempre arriba del contenido */
+.carousel-container {
+  width: 100%;
+  margin-bottom: 30px; /* Añadir un margen inferior para separar el carrusel del contenido */
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 500px; /* Ajusta la altura según tus necesidades */
+  object-fit: cover;
+}
+
+/* Ajustar las imágenes del carrusel */
+.carousel-item img {
+  width: 100%;
+  height: 500px; /* Ajusta la altura según tus necesidades */
+  object-fit: cover;
+}
+

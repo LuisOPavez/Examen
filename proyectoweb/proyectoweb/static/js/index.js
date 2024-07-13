@@ -2,14 +2,18 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('CARGÓ');
     obtenerDivisa();
     const selectDivisa = document.getElementById('divisa');
-    selectDivisa.addEventListener('change', calcularTotal);
-    calcularTotal();
+    if (selectDivisa) {
+        selectDivisa.addEventListener('change', calcularTotal);
+        calcularTotal();
+    }
 });
 
 let valorTotalInicial;
 
 async function calcularTotal() {
     const selectDivisa = document.getElementById('divisa');
+    if (!selectDivisa) return;
+    
     const divisaSeleccionada = selectDivisa.value;
 
     try {
@@ -68,7 +72,9 @@ async function obtenerDivisa() {
         const bitcoin = data.bitcoin.valor;
 
         const divisasNavbar = document.getElementById('divisas-navbar');
-        divisasNavbar.innerHTML = `<i class="fas fa-dollar-sign"></i> Dólar: $${dolar} | <i class="fab fa-bitcoin"></i> Bitcoin: ${bitcoin} | <i class="fas fa-file-invoice-dollar"></i> UF: $${uf}`;
+        if (divisasNavbar) {
+            divisasNavbar.innerHTML = `<i class="fas fa-dollar-sign"></i> Dólar: $${dolar} | <i class="fab fa-bitcoin"></i> Bitcoin: ${bitcoin} | <i class="fas fa-file-invoice-dollar"></i> UF: $${uf}`;
+        }
     } catch (error) {
         console.error('Error al obtener las divisas:', error);
     }
@@ -106,18 +112,19 @@ function validarFormulario() {
 
 document.addEventListener("DOMContentLoaded", function() {
     const loginForm = document.getElementById("login-form");
+    if (loginForm) {
+        loginForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevenir el envío del formulario para hacer algo antes
 
-    loginForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevenir el envío del formulario para hacer algo antes
+            const formData = new FormData(loginForm);
 
-        const formData = new FormData(loginForm);
-
-        // Aquí podrías añadir validaciones personalizadas antes de enviar el formulario
-        if (validateForm(formData)) {
-            // Si todo es correcto, envía el formulario
-            loginForm.submit();
-        }
-    });
+            // Aquí podrías añadir validaciones personalizadas antes de enviar el formulario
+            if (validateForm(formData)) {
+                // Si todo es correcto, envía el formulario
+                loginForm.submit();
+            }
+        });
+    }
 
     function validateForm(formData) {
         // Ejemplo de validación: asegurar que los campos no estén vacíos
@@ -170,7 +177,7 @@ function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
+        for (let i = 0; cookies.length > i; i++) {
             const cookie = cookies[i].trim();
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));

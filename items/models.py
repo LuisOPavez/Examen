@@ -53,6 +53,9 @@ class Item(models.Model):
     def get_absolute_url(self):
         return reverse('item_list', args=[str(self.pk)])
 
+    def get_detail_url(self):
+        return reverse('item_detail', args=[str(self.pk)])
+
     def formatted_precio(self):
         return "${:,.0f}".format(self.precio).replace(',', '.')
 
