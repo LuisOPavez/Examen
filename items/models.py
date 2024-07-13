@@ -1,6 +1,11 @@
+from cryptography.fernet import Fernet
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from category.models import Category
+
+# Usa la clave de cifrado almacenada en settings
+cipher_suite = Fernet(settings.FERNET_KEY)
 
 class Item(models.Model):
     item = models.CharField(primary_key=True, max_length=8, editable=False, default='00000000')
@@ -17,6 +22,7 @@ class Item(models.Model):
     descripcion = models.CharField(max_length=500, default='Descripción no disponible')
     destacado = models.BooleanField(default=False)
     url = models.CharField(max_length=100, default='default-url')
+    sensitive_data = models.CharField(max_length=500, default='')  # Campo para datos sensibles
 
     def save(self, *args, **kwargs):
         if self.item == '00000000' or not self.item:
@@ -28,7 +34,18 @@ class Item(models.Model):
                 new_item_int = item_int + 1
                 self.item = f'{new_item_int:08d}'
         self.precio_desc = self.precio - (self.precio * (self.descuento / 100))
+        
+        # Cifrar datos sensibles antes de guardar
+        if self.sensitive_data:
+            self.sensitive_data = cipher_suite.encrypt(self.sensitive_data.encode()).decode()
+        
         super(Item, self).save(*args, **kwargs)
+
+    def get_sensitive_data(self):
+        # Descifrar datos sensibles antes de devolverlos
+        if self.sensitive_data:
+            return cipher_suite.decrypt(self.sensitive_data.encode()).decode()
+        return ''
 
     def __str__(self):
         return self.nombre
